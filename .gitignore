@@ -1,0 +1,9 @@
+out
+.config
+.lines.sh
+*.txt
+!testing/tests/dict.txt
+!CMakeLists.txt
+logs
+testing/googletest
+.idea
