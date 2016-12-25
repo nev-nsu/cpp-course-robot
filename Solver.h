@@ -18,17 +18,14 @@ private:
     Surface<P> *surface;
     P position;
     std::set<P> visited;
+    std::vector<P> path;
 
     bool dfs(P p, int &deep);
-
     void sort(std::vector<std::tuple<P, double>> &array);
-
-    std::vector<P> path;
 public:
     Solver(Surface<P> *used_surface);
 
     bool solve(int limit = 1000);
-
     std::vector<P> get_path();
 };
 

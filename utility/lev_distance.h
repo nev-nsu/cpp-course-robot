@@ -8,7 +8,9 @@
 
 #include <vector>
 
-// copy-pasted from Wikipedia
+
+// under CPOL,
+// by Sten Hjelmqvist// copy-pasted from Wikipedia
 template<class P>
 int LevenshteinDistance(std::vector<P> s, std::vector<P> t) {
     // degenerate cases

@@ -22,12 +22,12 @@ public:
     PlanarPoint(int X = -1, int Y = -1);
 
     virtual std::vector<PlanarPoint> near() const;
+    virtual double dist(const PlanarPoint &other, Topology top = Topology::planar, int width = 0, int height = 0) const;
 
     virtual bool operator==(const PlanarPoint &other) const;
-
+    virtual bool operator!=(const PlanarPoint &other) const;
     virtual bool operator<(const PlanarPoint &other) const;
-
-    virtual double dist(const PlanarPoint &other, Topology top = Topology::planar, int width = 0, int height = 0) const;
+    virtual bool operator>(const PlanarPoint &other) const;
 
     operator std::string() const;
 

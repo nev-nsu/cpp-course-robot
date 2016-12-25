@@ -17,10 +17,6 @@ std::vector<PlanarPoint> PlanarPoint::near() const {
     return res;
 }
 
-bool PlanarPoint::operator==(const PlanarPoint &other) const {
-    return (x == other.x && y == other.y);
-}
-
 double PlanarPoint::dist(const PlanarPoint &other, Topology top, int width, int height) const {
     if (top == Topology::tor && height < 0)
         top = Topology::cylinder;
@@ -38,8 +34,20 @@ double PlanarPoint::dist(const PlanarPoint &other, Topology top, int width, int 
     }
 }
 
+bool PlanarPoint::operator==(const PlanarPoint &other) const {
+    return (x == other.x && y == other.y);
+}
+
+bool PlanarPoint::operator!=(const PlanarPoint &other) const {
+    return !(*this == other);
+}
+
 bool PlanarPoint::operator<(const PlanarPoint &other) const {
     return (x < other.x) || (x == other.x && y < other.y);
+}
+
+bool PlanarPoint::operator>(const PlanarPoint &other) const {
+    return !(*this < other || *this == other);
 }
 
 PlanarPoint::operator std::string() const {
@@ -47,6 +55,7 @@ PlanarPoint::operator std::string() const {
     res << x << " " << y;
     return res.str();
 }
+
 
 
 

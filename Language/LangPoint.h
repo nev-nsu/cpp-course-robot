@@ -17,12 +17,12 @@ public:
     LangPoint(std::string Word = std::string(), std::string alphabet = std::string());
 
     virtual std::vector<LangPoint> near() const;
+    virtual double dist(const LangPoint &other) const;
 
     virtual bool operator==(const LangPoint &other) const;
-
+    virtual bool operator!=(const LangPoint &other) const;
     virtual bool operator<(const LangPoint &other) const;
-
-    virtual double dist(const LangPoint &other) const;
+    virtual bool operator>(const LangPoint &other) const;
 
     operator std::string() const;
 

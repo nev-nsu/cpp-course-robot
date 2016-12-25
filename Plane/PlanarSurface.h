@@ -18,24 +18,21 @@ private:
     PlanarPoint position;
     PlanarPoint finish;
     Topology top;
-    size_t height, width;
+    std::size_t height, width;
     bool *visited;
     bool *passability;
-
-    bool checkfix_point(PlanarPoint &p);
+    static PlanarPoint default_point;
+    bool checkfix_point(PlanarPoint &p) const;
 
 public:
     PlanarSurface(std::string filename, Topology topology = Topology::planar);
+    ~PlanarSurface();
+
 
     virtual double move(PlanarPoint p) override;
-
-    virtual std::vector<std::tuple<PlanarPoint, double>> lookup() override;
-
-    virtual PlanarPoint pos() const;
-
-    virtual bool done() override;
-
-    ~PlanarSurface();
+    virtual std::vector<std::tuple<PlanarPoint, double>> lookup() const override;
+    virtual PlanarPoint pos() const override;
+    virtual bool done() const override;
 
     friend std::ostream &operator<<(std::ostream &output, PlanarSurface &surface);
 };

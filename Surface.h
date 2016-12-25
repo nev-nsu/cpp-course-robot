@@ -19,11 +19,8 @@ template<typename P>
 class Surface {
 public:
     virtual double move(P p) = 0;
-
-    virtual std::vector<std::tuple<P, double>> lookup() = 0;
-
-    virtual bool done() = 0;
-
+    virtual std::vector<std::tuple<P, double>> lookup() const = 0;
+    virtual bool done() const = 0;
     virtual P pos() const = 0;
 };
 

@@ -8,11 +8,11 @@
 
 std::string russian_alphabet = "абвгдеёжзийклмнопрстуфхцчшщыъэьюя";
 
-bool LangSurface::done() {
+bool LangSurface::done() const {
     return position == finish;
 }
 
-std::vector<std::tuple<LangPoint, double>> LangSurface::lookup() {
+std::vector<std::tuple<LangPoint, double>> LangSurface::lookup() const {
     auto tmp = position.near();
     std::vector<std::tuple<LangPoint, double>> res;
     for (auto i : tmp)
@@ -56,15 +56,17 @@ LangSurface::LangSurface(std::string dictionary_filename, std::string alphabet,
     std::string buf;
     std::getline(in, buf);
     while (in && !in.eof()) {
-        buf.pop_back();
         language.insert(buf);
         std::getline(in, buf);
     }
+    BOOST_LOG_TRIVIAL(info) << "Reading done (" << dictionary_filename << ").";
     if (!passability(position) || !passability(finish)) {
-        BOOST_LOG_TRIVIAL(error) << "Parsing error: start/finish word doesn't exist";
+        BOOST_LOG_TRIVIAL(error) << "Parsing error: start(" << std::string(position)
+                                 << ") or finish(" << std::string(finish) << ") word doesn't exist";
         throw BadMap();
     }
     visited.push_back(start_word);
+    BOOST_LOG_TRIVIAL(info) << "Parsing done. Surface successfully created.";
 }
 
 
@@ -77,8 +79,9 @@ std::ostream &operator<<(std::ostream &output, LangSurface &surface) {
     return output;
 }
 
-bool LangSurface::passability(LangPoint p) {
-    return language.count(p) != 0;
+bool LangSurface::passability(LangPoint p) const {
+    bool res = (language.find(std::string(p)) == language.end());
+    return !res;
 }
 
 LangPoint LangSurface::pos() const {
